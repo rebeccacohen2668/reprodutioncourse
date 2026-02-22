@@ -1,20 +1,39 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# משחקי רבייה בעולם החי (Reproduction in the Animal Kingdom Game)
 
-# Run and deploy your AI Studio app
+משחק לימודי אינטראקטיבי בנושא רבייה בעולם החי, המיועד לתלמידים. המשחק כולל התאמת מושגים להסברים שלהם ברמות קושי שונות.
 
-This contains everything you need to run your app locally.
+## תכונות
+- **ממשק מותאם לנייד:** עיצוב רספונסיבי המאפשר משחק נוח בטלפונים וטאבלטים.
+- **מנגנון גרירה והתאמה:** תמיכה בגרירה (Drag & Drop) וגם בלחיצה להתאמה (Click-to-match) לשיפור הנגישות.
+- **משוב מיידי:** חיווי ויזואלי וקולי (אייקונים) על תשובות נכונות ושגויות.
+- **רמות קושי:** התקדמות בשלבים בתוך כל יחידת לימוד.
 
-View your app in AI Studio: https://ai.studio/apps/fbb4a50b-7815-4cbe-866f-01afc518a440
+## טכנולוגיות
+- React 18+
+- TypeScript
+- Tailwind CSS
+- Lucide React (Icons)
+- Framer Motion (Animations)
+- Vite
 
-## Run Locally
+## התקנה והרצה מקומית
 
-**Prerequisites:**  Node.js
+1. שכפלו את המאגר:
+   ```bash
+   git clone <repository-url>
+   ```
+2. התקינו תלויות:
+   ```bash
+   npm install
+   ```
+3. הריצו את שרת הפיתוח:
+   ```bash
+   npm run dev
+   ```
+4. לבניית גרסת ייצור:
+   ```bash
+   npm run build
+   ```
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## רישיון
+כל הזכויות שמורות.
