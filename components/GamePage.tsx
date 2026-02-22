@@ -67,9 +67,10 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
         setDraggedItem(null);
     };
 
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>, definition: string) => {
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>, pair: Pair) => {
         e.preventDefault();
-        setDropZoneHighlight(definition);
+        if (matchedConcepts.has(pair.concept)) return;
+        setDropZoneHighlight(pair.definition);
     };
 
     const handleDragLeave = () => {
@@ -128,12 +129,12 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                 <p className="text-lg md:text-xl font-semibold text-blue-600">{currentLevel.name}</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-3 md:p-6 max-w-6xl mx-auto">
-                <div className="grid grid-cols-2 gap-3 md:gap-8">
+            <div className="bg-white rounded-lg shadow-lg p-2 md:p-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-2 gap-2 md:gap-8">
                     {/* Concepts Column */}
                     <div className="flex flex-col">
                         <h2 className="text-lg md:text-2xl font-bold text-center text-blue-600 mb-4 md:mb-6">מושגים</h2>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-2 md:gap-3">
                             {shuffledConcepts.map((pair) => {
                                 const isMatched = matchedConcepts.has(pair.concept);
                                 const isDragging = draggedItem?.concept === pair.concept;
@@ -145,7 +146,7 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                                         onDragStart={() => handleDragStart(pair)}
                                         onDragEnd={handleDragEnd}
                                         onClick={() => handleConceptClick(pair)}
-                                        className={`h-[100px] md:h-[120px] flex items-center justify-center p-2 text-center text-xs md:text-base font-semibold rounded-lg border-2 transition-all duration-200
+                                        className={`h-[130px] md:h-[140px] flex items-center justify-center p-2 text-center text-xs md:text-base font-semibold rounded-lg border-2 transition-all duration-200
                                             ${isMatched 
                                                 ? 'bg-green-100 border-green-300 text-gray-500'
                                                 : isSelected
@@ -155,7 +156,7 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                                             ${isDragging ? 'opacity-50 rotate-3' : ''}
                                         `}
                                     >
-                                        {pair.concept}
+                                        <span className="break-words">{pair.concept}</span>
                                     </div>
                                 );
                             })}
@@ -165,7 +166,7 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                     {/* Definitions Column */}
                     <div className="flex flex-col">
                         <h2 className="text-lg md:text-2xl font-bold text-center text-orange-600 mb-4 md:mb-6">הסברים</h2>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-2 md:gap-3">
                             {shuffledDefinitions.map((pair) => {
                                 const isMatched = matchedConcepts.has(pair.concept);
                                 const isHighlighted = dropZoneHighlight === pair.definition;
@@ -173,10 +174,10 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                                     <div
                                         key={`definition-${pair.definition}`}
                                         onDrop={() => handleDrop(pair)}
-                                        onDragOver={(e) => handleDragOver(e, pair.definition)}
+                                        onDragOver={(e) => handleDragOver(e, pair)}
                                         onDragLeave={handleDragLeave}
                                         onClick={() => handleDefinitionClick(pair)}
-                                        className={`h-[100px] md:h-[120px] flex items-center justify-center p-2 md:p-6 text-center text-[10px] md:text-base rounded-lg border-2 transition-all duration-200
+                                        className={`h-[130px] md:h-[140px] flex items-center justify-center p-2 md:p-4 text-center text-[10px] md:text-sm lg:text-base rounded-lg border-2 transition-all duration-200 overflow-y-auto
                                             ${isMatched
                                                 ? 'bg-green-100 border-green-300'
                                                 : 'bg-orange-100 border-orange-300 cursor-pointer hover:bg-orange-200'
@@ -184,7 +185,7 @@ const GamePage: React.FC<GamePageProps> = ({ unitName, unitData, onGoHome }) => 
                                             ${isHighlighted ? 'bg-blue-200 border-blue-400 scale-105' : ''}
                                         `}
                                     >
-                                        {pair.definition}
+                                        <span className="break-words leading-tight">{pair.definition}</span>
                                     </div>
                                 );
                             })}
